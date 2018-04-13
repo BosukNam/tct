@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class ListTest {
 
 	public static void main(String[] args) {
-
+	/*
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader("./DS_Sample1.txt"));
 			List<Student> stuList = new ArrayList<Student>();
@@ -79,7 +79,6 @@ public class ListTest {
 
 			System.out.println("Bye~");
 			
-			/*
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			while (true) {
 				String strInput = br.readLine();
@@ -102,24 +101,25 @@ public class ListTest {
 							val.getMath()));
 				}
 			}
-			*/
+			
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		*/
 	}
 
-	public static void printStuList(List<Student> stuList, String title, Comparator<Student> co) {
-		System.out.println("[" + title + "]");
-		Collections.sort(stuList, co);
-
-		for (Student stu : stuList) {
-			System.out.println(stu.getName() + "\t" + stu.getKoreanScore() + " " + stu.getEnglishScore() + " "
-					+ stu.getMathScore());
-		}
-	}
+//	public static void printStuList(List<Student> stuList, String title, Comparator<Student> co) {
+//		System.out.println("[" + title + "]");
+//		Collections.sort(stuList, co);
+//
+//		for (Student stu : stuList) {
+//			System.out.println(stu.getName() + "\t" + stu.getKoreanScore() + " " + stu.getEnglishScore() + " "
+//					+ stu.getMathScore());
+//		}
+//	}
 }
 
 // DS_Sample1.txt
