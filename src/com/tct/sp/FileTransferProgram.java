@@ -1,5 +1,6 @@
 package com.tct.sp;
 
+import java.io.File;
 import java.util.Scanner;
 
 /**
@@ -17,11 +18,60 @@ public class FileTransferProgram {
 		
 		do{
 			selectedMenuNo = selectMainMenu();
+			
+			switch (selectedMenuNo) {
+			case 1:
+				searchFile();
+				break;
+			case 2:
+				System.out.println("2");
+				break;
+			case 3:
+				System.out.println("3");
+				break;
+			case 4: break;
+			default:
+				System.out.println("# 존재하지 않는 메뉴입니다! 다시 입력해주세요!!\n");
+			}
+			
 		}while(selectedMenuNo != 4);
 	
 		System.out.println("# 프로그램을 종료합니다...");
 	}
 
+	public static void searchFile() {
+		Scanner scanner = new Scanner(System.in);
+		String inputStr = null;
+		boolean isNameCorrectlyInputed = false;
+		
+		do {
+			System.out.println("\n################## 파일 찾기 ###################");
+			System.out.print(">>파일명을 입력하세요 : ");
+			inputStr = scanner.nextLine();
+			
+			if (inputStr == null || inputStr.length() == 0) 
+				System.out.println("# 잘못된 입력입니다! 다시 입력해주세요!!\n");
+			else
+				isNameCorrectlyInputed = true;
+
+		} while (!isNameCorrectlyInputed);
+		
+		
+		boolean isFileExists = false;
+		File directory = new File("./");
+		File[] fList = directory.listFiles();
+
+		for (File file : fList) {
+			if(file.isFile() && file.getName().equals(inputStr.trim())) {
+				System.out.println(file.getName() + ":	" + file.length() + "bytes\n");
+				isFileExists = true;
+			} 
+		}
+		
+		if(!isFileExists)
+			System.out.println("# 파일이 존재하지 않습니다.\n");
+	}
+	
 	public static int selectMainMenu() {
 		Scanner scanner = new Scanner(System.in);
 		String selectedMenuStr = null;
@@ -43,10 +93,10 @@ public class FileTransferProgram {
 					selectedMenuNo = Integer.parseInt(selectedMenuStr);
 					isMenuSelected = true;
 				} catch (Exception e) {
-					System.out.println("# 잘못된 입력입니다! 다시 입력해주세요!!");
+					System.out.println("# 잘못된 입력입니다! 다시 입력해주세요!!\n");
 				}
 			} else
-				System.out.println("# 잘못된 입력입니다! 다시 입력해주세요!!");
+				System.out.println("# 잘못된 입력입니다! 다시 입력해주세요!!\n");
 
 		} while (!isMenuSelected);
 		
