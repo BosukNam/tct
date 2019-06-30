@@ -1,17 +1,38 @@
 package com.util.socket;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class Client {
 	public static void main(String[] args) {
 		try {
-			fileSend("127.0.0.1", 9090);
+			Socket socket = new Socket("127.0.0.1", 9090);
+			BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+			
+			Scanner scanner = new Scanner(System.in);
+			String inputStr = null;
+			
+			do {
+				System.out.print("input >> ");
+				inputStr = scanner.nextLine();
+				writer.println(inputStr);
+				writer.flush();
+			}
+			while(!inputStr.equals("exit"));
+			scanner.close();
+			
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

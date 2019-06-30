@@ -14,38 +14,32 @@ public class Server {
 	public static void main(String[] args) {
 		ServerSocket listener = null;
 		Socket socket = null;
+		int portNo = 9090;
 
 		try {
-			try {
-				listener = new ServerSocket(9090);
-				System.out.println("Server start...");
-			} catch (IOException ex) {
-				System.out.println("Can't setup server on this port number. ");
-			}
-
-			try {
-				socket = listener.accept();
-				System.out.println("Server accepted client...");
-			} catch (IOException ex) {
-				System.out.println("Can't accept client connection. ");
-			}
-
-			// PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-			// out.println("test");
-
-			fileReceive(socket);
-
-			// QUIT 입력 전까지 서버 계속 가동
-			Thread t = new InputQuitThread(listener, socket);
-			t.start();
-		} catch (IOException e) {
-			e.printStackTrace();
+			listener = new ServerSocket(portNo);
+			System.out.println("Server start...");
+		} catch (IOException ex) {
+			System.out.println("Can't setup server on this port number. ");
 		}
+
+		try {
+			while((socket = listener.accept()) != null) {
+				System.out.println("Server accepted client...");
+				InputThread inputThread = new InputThread(listener, socket);
+				inputThread.start();
+			}
+		} catch (IOException ex) {
+			System.out.println("Client connection has been closed...");
+		}
+
 	}
 
 	/**
 	 * 해당 경로로 파일을 다운받는 메소드
-	 * @param socket accept 받은 소켓 정보
+	 * 
+	 * @param socket
+	 *            accept 받은 소켓 정보
 	 * @throws UnknownHostException
 	 * @throws IOException
 	 */
@@ -60,7 +54,7 @@ public class Server {
 		}
 
 		try {
-//			out = new FileOutputStream("./receive/oraociei12.dll");
+			// out = new FileOutputStream("./receive/oraociei12.dll");
 			out = new FileOutputStream("path/file-name");
 		} catch (FileNotFoundException ex) {
 			System.out.println("File not found. ");
