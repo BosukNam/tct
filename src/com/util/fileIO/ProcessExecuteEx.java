@@ -32,7 +32,7 @@ public class ProcessExecuteEx {
             BufferedReader stdError = new BufferedReader(new InputStreamReader(oProcess.getErrorStream()));
             
             while((s = stdOut.readLine())!=null) System.out.println(s);
-            while((s = stdError.readLine())!=null) System.out.println(s);
+            while((s = stdError.readLine())!=null) System.err.println(s);
             
             System.out.println("Exit Code: " + oProcess.exitValue());
             System.exit(oProcess.exitValue());

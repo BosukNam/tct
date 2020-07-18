@@ -1,27 +1,44 @@
 package com.util.fileIO;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FileIO {
 	public static void main(String[] args) {
-		File directory = new File("./INPUT");
-		// get all the files from a directory
-		File[] fList = directory.listFiles();
-
-		for (File file : fList) {
-			System.out.println(file.getName() + ":	" + file.length() + "bytes");
-			if (file.length() > 2048) {
-				MyCopyFile(file.getName());
-			}
+		File inputFile = new File("./INPUT/INPUT.TXT");
+		try {
+			List<String> strList = new ArrayList<>();
+			strList = readFile(inputFile, strList);
+			File outputFile = new File("./OUTPUT/OUTPUT.TXT");
+			if(!outputFile.exists()) outputFile.createNewFile();
+			writeFile(outputFile,strList);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
-	
-	static void MyCopyFile(String filename) {
+
+	public static void writeFile(File file, List<String> strList) throws IOException {
+		PrintWriter writer = new PrintWriter(file);
+		for(String line : strList) {
+			writer.println(String.format("%s ",line));
+		}
+		writer.flush();
+		writer.close();
+	}
+
+	public static List<String> readFile(File file, List<String> strList) throws IOException {
+		BufferedReader reader = new BufferedReader(new FileReader(file));
+		String line = reader.readLine();
+		while(line!=null){
+			System.out.println(line);
+			strList.add(line);
+			line = reader.readLine();
+		}
+		return strList;
+	}
+
+	public static void myCopyFile(String filename) {
 		final int BUFFER_SIZE = 512;
 		int readLen;
 
