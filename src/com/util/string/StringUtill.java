@@ -143,4 +143,35 @@ public class StringUtill {
 		}
 		return chSet.size();
 	}
+
+	/**
+	 * 정해진 길이로 2진수 문자열을 만드는 함수
+	 * @param intList 1 의 index
+	 * @param maxLength 문자열 길이
+	 * @return 2진수 문자열
+	 */
+	public static String makeBinaryStr(List<Integer> intList, int maxLength) {
+		StringBuilder result = new StringBuilder();
+		for(int i=0; i<maxLength; i++) {
+			result.append("0");
+		}
+		for(Integer num : intList) {
+			result.setCharAt(num, '1');
+		}
+		return result.reverse().toString();
+	}
+
+	/**
+	 * 두 char의 아스키코드 차이 계산
+	 * @param from
+	 * @param to
+	 * @return 알파벳 간 최단거리
+	 */
+	public static int getMoveTimeSec(char from, char to) {
+		int moveTime = Math.abs(from-to);
+		int revMoveTime = 26-moveTime;
+
+		if(moveTime<revMoveTime) return moveTime;
+		else return revMoveTime;
+	}
 }
