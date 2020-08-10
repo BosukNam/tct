@@ -9,6 +9,33 @@ public class MapArrayTest {
     }
 
     /**
+     * Map 에 키 존재 때 작업
+     * @param map
+     * @param k
+     */
+    public void ifMapKeyPresent(Map<String, Integer> map, String k) {
+        map.computeIfPresent(k, (String key, Integer value) -> ++value);
+    }
+
+    /**
+     * Map 에 키 존재하지 않을 때 작업 (by function, by value)
+     * @param map
+     * @param key
+     */
+    public void ifMapKeyAbsent(Map<String, Integer> map, String key) {
+        map.computeIfAbsent(key, x -> new Integer(0)); // by function
+        map.putIfAbsent(key, 5); // by value
+    }
+
+    /**
+     * 배열 채우기
+     * @param ary
+     */
+    public void fillArray(int[] ary) {
+        Arrays.fill(ary, 0);
+    }
+
+    /**
      * int[] 에서 찾는 값이 있는지 확인
      * @param ary
      * @param find
